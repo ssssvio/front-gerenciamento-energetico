@@ -1,0 +1,14 @@
+{
+  "name": "gerenciamento-energetico-frontend",
+  "version": "1.0.0",
+  "description": "Frontend estatico (HTML/CSS/JS puro) do sistema de gerenciamento energetico escolar, servido por um pequeno servidor Node/Express que injeta variaveis de ambiente.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

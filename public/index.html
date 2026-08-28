@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerenciamento Energético Escolar</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>⚡ Gerenciamento Energético Escolar</h1>
+    <p class="subtitle">Papagaios-MG · Monitoramento de consumo e chamados técnicos</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="consumo">Consumo</button>
+    <button class="tab-btn" data-tab="chamados">Chamados</button>
+    <button class="tab-btn" data-tab="config">Configurações</button>
+  </nav>
+
+  <main>
+    <section id="tab-dashboard" class="tab-content active">
+      <div class="cards" id="cards-resumo"></div>
+      <div class="charts">
+        <div class="chart-box">
+          <h3>Consumo médio mensal por setor (kWh)</h3>
+          <canvas id="chart-setores"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>Custo médio mensal: antes x depois da solar</h3>
+          <canvas id="chart-antes-depois"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-consumo" class="tab-content">
+      <form id="form-consumo" class="form-card">
+        <h3>Novo registro de consumo</h3>
+        <div class="form-row">
+          <label>Setor
+            <select id="input-setor" class="setor-select" required>
+              <option value="" disabled selected>Selecione...</option>
+            </select>
+          </label>
+          <label>Mês
+            <input type="month" id="input-mes" required />
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Consumo (kWh)
+            <input type="number" id="input-kwh" min="0" step="0.1" required />
+          </label>
+          <label>Custo (R$)
+            <input type="number" id="input-custo" min="0" step="0.01" required />
+          </label>
+        </div>
+        <button type="submit">Salvar registro</button>
+        <p class="form-msg" id="msg-consumo"></p>
+      </form>
+
+      <div class="filters">
+        <label>Filtrar por setor
+          <select id="filtro-setor" class="setor-select">
+            <option value="">Todos os setores</option>
+          </select>
+        </label>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Mês</th><th>Setor</th><th>kWh</th><th>Custo (R$)</th></tr>
+        </thead>
+        <tbody id="tabela-consumo"></tbody>
+      </table>
+    </section>
+
+    <section id="tab-chamados" class="tab-content">
+      <form id="form-chamado" class="form-card">
+        <h3>Abrir novo chamado</h3>
+        <div class="form-row">
+          <label class="full">Título
+            <input type="text" id="input-titulo" required />
+          </label>
+        </div>
+        <div class="form-row">
+          <label class="full">Descrição
+            <textarea id="input-descricao" rows="3" required></textarea>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Categoria
+            <select id="input-categoria" required>
+              <option value="Suporte técnico">Suporte técnico</option>
+              <option value="Manutenção elétrica">Manutenção elétrica</option>
+              <option value="Melhoria de rede/monitoramento">Melhoria de rede/monitoramento</option>
+            </select>
+          </label>
+          <label>Setor relacionado
+            <select id="input-chamado-setor" class="setor-select">
+              <option value="">Geral / não se aplica</option>
+            </select>
+          </label>
+          <label>Prioridade
+            <select id="input-prioridade">
+              <option value="baixa">Baixa</option>
+              <option value="media" selected>Média</option>
+              <option value="alta">Alta</option>
+            </select>
+          </label>
+        </div>
+        <button type="submit">Abrir chamado</button>
+        <p class="form-msg" id="msg-chamado"></p>
+      </form>
+
+      <div class="filters">
+        <label>Status
+          <select id="filtro-status">
+            <option value="">Todos</option>
+            <option value="aberto">Aberto</option>
+            <option value="em_andamento">Em andamento</option>
+            <option value="concluido">Concluído</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="lista-chamados" class="lista-chamados"></div>
+    </section>
+
+    <section id="tab-config" class="tab-content">
+      <form id="form-config" class="form-card">
+        <h3>Data de implementação da energia solar</h3>
+        <p class="hint">Define o corte usado para comparar o consumo "antes" e "depois" no dashboard.</p>
+        <label>Mês/ano
+          <input type="month" id="input-data-solar" required />
+        </label>
+        <button type="submit">Salvar configuração</button>
+        <p class="form-msg" id="msg-config"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Projeto acadêmico · UNINTER · Atividade Extensionista III</p>
+  </footer>
+
+  <script src="/env.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="js/api.js"></script>
+  <script src="js/setores.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/consumos.js"></script>
+  <script src="js/chamados.js"></script>
+  <script src="js/settings.js"></script>
+</body>
+</html>
